@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "index.js"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
   "dependencies": {
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
-    "mysql2": "^3.17.0"
+    "mysql2": "^3.17.0",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"

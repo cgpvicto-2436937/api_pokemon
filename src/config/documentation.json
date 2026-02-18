@@ -1,0 +1,195 @@
+{
+    "openapi": "3.1.0",
+    "info":{
+        "title": "Démo API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/",
+            "description": "Serveur de développement"
+        }
+    ],
+    "paths": {
+        "/api": {
+            "get": {
+                "summary": "Message de bienvenue",
+                "tags": ["Accueil"],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de bienvenue",
+                        "content": {
+                            "text/html": {
+                                "example": "<h1>Mon premier serveur web sur express !</h1>"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pokemons/{id}": {
+            "get": {
+                "summary": "Afficher un pokemon selon son id",
+                "tags": ["Pokemon"],
+                "description": "Afficher un pokemon selon son id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id souhaité pour le pokemon.",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "exemple":"1"
+                        },
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pokémon récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "nom": {
+                                            "type": "string",
+                                            "example": "Bulbasaur"
+                                        },
+                                        "type_primaire": {
+                                            "type": "string",
+                                            "example": "Grass"
+                                        },
+                                        "type_secondaire": {
+                                            "type": "string",
+                                            "example": "Poison"
+                                        },
+                                        "pv": {
+                                            "type": "int",
+                                            "example": 45
+                                        },
+                                        "attaque": {
+                                            "type": "int",
+                                            "example": 49
+                                        },
+                                        "defense": {
+                                            "type": "int",
+                                            "example": 49
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description": "Pokémon non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erreur, le pokémon n'existe pas"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur dans la requete SQL",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Echec lors de la récupération du pokemon avec l'id 1245"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pokemons/": {
+            "get": {
+                "summary": "Afficher un pokemon selon son id",
+                "tags": ["Pokemon"],
+                "description": "Afficher un pokemon selon son id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id souhaité pour le pokemon.",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "exemple":"1"
+                        },
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pokémon récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "nom": {
+                                            "type": "string",
+                                            "example": "Bulbasaur"
+                                        },
+                                        "type_primaire": {
+                                            "type": "string",
+                                            "example": "Grass"
+                                        },
+                                        "type_secondaire": {
+                                            "type": "string",
+                                            "example": "Poison"
+                                        },
+                                        "pv": {
+                                            "type": "int",
+                                            "example": 45
+                                        },
+                                        "attaque": {
+                                            "type": "int",
+                                            "example": 49
+                                        },
+                                        "defense": {
+                                            "type": "int",
+                                            "example": 49
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description": "Pokémon non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erreur, le pokémon n'existe pas"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
