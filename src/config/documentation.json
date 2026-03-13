@@ -42,7 +42,7 @@
                             "format": "int32",
                             "exemple":"1"
                         },
-                        "required": false
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -119,25 +119,34 @@
         },
         "/api/pokemons/": {
             "get": {
-                "summary": "Afficher un pokemon selon son id",
+                "summary": "Afficher une page de pokemon selon le type",
                 "tags": ["Pokemon"],
-                "description": "Afficher un pokemon selon son id",
+                "description": "Afficher une page de pokemon selon le type",
                 "parameters": [
                     {
-                        "in": "path",
-                        "name": "id",
-                        "description": "Id souhaité pour le pokemon.",
+                        "in": "query",
+                        "name": "page",
+                        "description": "Nombre de pages souhaité",
+                        "schema":{
+                            "type":"int",
+                            "format":"int32",
+                            "exemple":"1"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "type",
+                        "description": "Type souhaité pour les pokemons.",
                         "schema": {
-                            "type": "integer",
-                            "format": "int32",
+                            "type": "string",
                             "exemple":"1"
                         },
-                        "required": false
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Pokémon récupérée avec succès",
+                        "description": "Pokémons récupérée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -182,6 +191,22 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Erreur, le pokémon n'existe pas"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur dans la requete SQL",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Echec lors de la récupération des pokemon de type grass"
                                         }
                                     }
                                 }

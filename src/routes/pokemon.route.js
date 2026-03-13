@@ -4,5 +4,6 @@ import { trouverPokemonId} from '../controllers/pokemon.controller.js';
 const router = express.Router();
 
 router.get('/api/pokemons/:id', trouverPokemonId);
+router.get('/api/pokemon/liste', trouverListe)
 
 export default router;
