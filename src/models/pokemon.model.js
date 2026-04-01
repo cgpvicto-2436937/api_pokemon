@@ -1,22 +1,18 @@
-import pool from '../config/db.js';
+import pool from '../config/db_pg.js';
 
 const getPokemonId = async (id) => {
-
-    // On spécifie LIMIT 1 pour s'assurer de ne récupérer qu'un seul enregistrement
-    const requete = `SELECT nom, type_primaire, type_secondaire, pv, attaque, defense FROM pokemon WHERE id = ?`;
+    const requete = `SELECT id, nom, type_primaire, type_secondaire, pv, attaque, defense 
+                     FROM pokemon WHERE id = $1`;
     const params = [id];
 
     try {
-        // Attention: mysql2 retourne un tableau avec deux éléments : les résultats et 
-        //      les informations sur les champs
-        // Nous n'avons besoin que des résultats ici (décomposition du tableau en ignorant 
-        //      le second élément)
-        const [resultats] = await pool.query(requete, params);
-        // Retourne le premier élément du tableau ou null si vide
-        return resultats ?? null;
+        const resultats = await pool.query(requete, params);
+        console.log('Résultats:', resultats.rows); // ← ajoutez cette ligne
+        // rows[0] retourne l'objet directement, ou undefined si aucun résultat
+        return resultats.rows[0] ?? null;
     } catch (erreur) {
-        console.log(`Erreur, code: ${erreur.code} sqlState ${erreur.sqlState} : 
-                    ${erreur.sqlMessage}`);
+        // Propriétés d'erreur correctes pour node-postgres (pg)
+        console.log(`Erreur, code: ${erreur.code} : ${erreur.message}`);
         throw erreur;
     }
 };
